@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block page_title %}
+Create page
+{% endblock %}
+
+
+{% block content %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    <!-- #set it as a paragraph for the fields -->
+    {{ form.as_p }}                    
+    <input type="submit" value="Create product">
+</form>
+
+{% endblock %}
