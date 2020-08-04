@@ -33,7 +33,9 @@ def contact(request):
         message = request.POST['message']
         name = request.POST['name']
         email = request.POST['email']
+        subject = request.POST['subject']
 
+        # sending an email
         send_mail(
             name,
             message,
