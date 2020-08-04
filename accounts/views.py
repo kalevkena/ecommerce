@@ -13,7 +13,7 @@ class UserRegisterView(generic.CreateView):
     success_url = reverse_lazy('login')
 
 
-def login(request):
+""" def login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -22,7 +22,7 @@ def login(request):
 
         if user is not None:
             auth.login(request, user)
-            return redirect('/')
+            return redirect('product_list')
         else:
             messages.info(request, 'Invalid credentials')
             return redirect('login')
@@ -59,4 +59,4 @@ def register(request):
             return redirect('register')
         return redirect('/')
     else: 
-        return render(request, 'register.html')
+        return render(request, 'register.html') """

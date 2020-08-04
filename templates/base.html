@@ -58,6 +58,14 @@
                                         </ul>
                                     </li>
                                     <li><a href="{% url 'contact' %}">Contact</a></li>
+                                    <!-- {% if user.is_authenticated %}
+                                <li> <a href="{% url 'logout' %}"><span class="flaticon-user"></span></a></li>
+
+                        {% else %}
+                                <li> <a href="{% url 'login' %}">Login</a></li>
+                                <li> <a href="{% url 'register' %}">Register</a></li>
+                        {% endif %} -->
+
                                 </ul>
                             </nav>
                         </div>
@@ -69,7 +77,14 @@
                                         <span class="flaticon-search"></span>
                                     </div>
                                 </li>
+                        {% if user.is_authenticated %}
+                                <li> <a href="{% url 'logout' %}"><span class="flaticon-user"></span></a></li>
+
+                        {% else %}
+                                <li> <a href="{% url 'login' %}"><span class="flaticon-user"></span></a></li>
                                 <li> <a href="{% url 'register' %}"><span class="flaticon-user"></span></a></li>
+                        {% endif %}
+
                                 <li><a href="shopping_cart.html"><span class="flaticon-shopping-cart"></span></a></li>
                             </ul>
                         </div>
