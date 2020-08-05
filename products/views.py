@@ -41,7 +41,6 @@ def contact(request):
             message,
             email,
             ['kalevkena@gmail.com'],
-
         )
 
         return render(request, 'contact.html', {'name': name})
@@ -60,11 +59,11 @@ class CreateProductView(LoginRequiredMixin, CreateView):
     fields = '__all__'                   # instead of inserting all fields, like name, price et, can use __all__
     success_url = reverse_lazy('product_list')
 
-# class CartView()
+def checkout(request):
+    context = {}
+    return render(request, 'checkout.html', context)
 
-""" def cart_add(request, id):
-    cart = Cart(request)
-    product = Product.objects.get(id=id)
-    cart.add(product=product)
-    return redirect("home") """
+def cart(request):
+    context= {}
+    return render(request, 'cart.html', context)
     
