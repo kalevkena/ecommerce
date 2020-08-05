@@ -1,11 +1,10 @@
 from django.contrib import admin
-from products.models import Category, Product
+from products.models import Category, Product, Order, OrderItem, ShippingAddress
 from products.forms import ProductAdminForm
 # Register your models here.
 
 class ProductAdmin(admin.ModelAdmin):
     form = ProductAdminForm
-
     list_display = ('name', 'price', 'old_price', 'created_at', 'updated_at',)
     list_display_links = ('name',)
     list_per_page = 20
