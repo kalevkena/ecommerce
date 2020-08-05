@@ -20,7 +20,7 @@ In case of windows: 1. run `cd store-env/Scripts` 2. run `activate`
 `python manage.py runserver`
 
 ## Go to your browser and acess one of the urls:
-* [localhost:8000/admin/](localhost:8000)
+* [localhost:8000](localhost:8000)
 * [localhost:8000/admin/](localhost:8000/admin/)
-* [localhost:8000/products/home/](localhost:8000/product_list)
-* 
+* [localhost:8000/product_list](localhost:8000/product_list)
+
