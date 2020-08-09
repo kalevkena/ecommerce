@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_title %}
+Product List page
+{% endblock %}
+
+
+{% block content %}
+
+<form class="search"  method="get">
+    {% if filter %}
+    <input type="text" name="filter" value="{{filter}}">
+    {% else %}
+    <input type="text" placeholder="Search...." name="filter">
+    {% endif %}
+
+    <button type="submit"><i class="fa fa-search"></i></button>
+</form>
+
+<table class="table">
+    <tr>
+        {% if orderby == "id" %} 
+            <th><a href="{% url 'list'%}?orderby=-id"> ID </a></th>
+        {% else %}
+            <th><a href="{% url 'list'%}?orderby=id"> ID </a></th>
+        {% endif %}
+
+        {% if orderby == "name" %}
+            <th><a href="{% url 'list'%}?orderby=-name"> Name </a></th>
+        {% else %}
+            <th><a href="{% url 'list'%}?orderby=name"> Name </a></th>
+        {% endif %}
+        
+        <th>Price</th>
+        <th>Quantity</th>
+    </tr>
+
+    {% for product in products %}
+    <tr>
+        <td><a href="{% url 'detail' product.id %}">{{product.id}}</a></td> 
+        <td>{{ product.name }}</td>
+        <td>{{ product.price | default_if_none:"--"}}</td>
+        <td>{{ product.quantity }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<hr>
+
+<a href="{% url 'create'%}"> Create a new product</a>
+
+{% endblock %}
