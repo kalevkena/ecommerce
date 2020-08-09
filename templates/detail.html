@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block page_title %}
+Detail page
+{% endblock %}
+
+
+{% block content %}
+
+{% if product.cover %}
+<p> <img src="{{ product.image.url}}" width="150" height="150"> </p>
+{% endif%}
+
+<p> Name: {{product.name}}  </p>
+<p> {{product.price}} </p>
+<p> Description: {{product.description}} </p>
+<p> {{product.spec}} </p>
+
+<hr>
+<a href="{% url 'update' product.id %}">UPDATE</a>
+
+{% if perms.products.delete_product %}
+<a href="{% url 'delete' product.id %}">DELETE</a>
+{% endif %}
+
+
+{% if perms.products.can_put_on_sale %}
+<p>PUT PRODUCT ON SALE</p>
+{% endif %}
+
+{% endblock %}
