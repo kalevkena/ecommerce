@@ -43,29 +43,11 @@
                             <nav>                                                
                                 <ul id="navigation">  
                                     <li><a href="{% url 'home' %}">Home</a></li>
-                                    <li><a href="{% url 'product_list' %}">Products</a></li>
-                                    <li class="hot"><a href="#">Latest</a>
-                                        <ul class="submenu">
-                                            <li><a href="{% url 'product_list' %}">Product list</a></li>
-                                            <li><a href="product_details.html"> Product Details</a></li>
-                                        </ul>
-                                    </li>
+                                    <li><a href="{% url 'list' %}">Products</a></li>
                                     
-                                    <li><a href="#">Pages</a>
-                                        <ul class="submenu">
-                                            <li><a href="confirmation.html">Confirmation</a></li>
-                                            <li><a href="checkout.html">Product Checkout</a></li>
-                                        </ul>
-                                    </li>
+                                    
                                     <li><a href="{% url 'contact' %}">Contact</a></li>
-                                    <!-- {% if user.is_authenticated %}
-                                <li> <a href="{% url 'logout' %}"><span class="flaticon-user"></span></a></li>
-
-                        {% else %}
-                                <li> <a href="{% url 'login' %}">Login</a></li>
-                                <li> <a href="{% url 'register' %}">Register</a></li>
-                        {% endif %} -->
-
+                                <!--  -->
                                 </ul>
                             </nav>
                         </div>
