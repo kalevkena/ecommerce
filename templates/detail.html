@@ -8,8 +8,8 @@ Detail page
 
 {% block content %}
 
-{% if product.cover %}
-<p> <img src="{{ product.image.url}}" width="150" height="150"> </p>
+{% if product.image %}
+<p> <img src="{{product.image.url}}" width="150" height="150"> </p>
 {% endif%}
 
 <p> Name: {{product.name}}  </p>
