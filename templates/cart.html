@@ -4,7 +4,6 @@
 {% block content %}
 
 
-
   <main>
       <!-- Hero Area Start-->
       <div class="slider-area ">
@@ -25,29 +24,37 @@
         <div class="container">
           <div class="cart_inner">
             <div class="table-responsive">
+              
               <table class="table">
                 <thead>
+                  <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                    
                   <tr>
-                    <th scope="col">Product</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Total</th>
+                    <th scope="col"><strong>Product</strong></th>
+                    <th scope="col"><strong>Price</strong></th>
+                    <th scope="col"><strong>Quantity</strong></th>
+                    <th scope="col"><strong>Total</strong></th>
+                    
                   </tr>
                 </thead>
+                {% for product in products %}
                 <tbody>
                   <tr>
                     <td>
                       <div class="media">
                         <div class="d-flex">
-                          <img src="{% static 'img/gallery/card1.png' %}" alt="" />
+                          {% if product.image %}
+                          <img src="{{ product.image.url}}" width="150" height="150" alt="" />
+                          {% endif %}
                         </div>
+                        
                         <div class="media-body">
-                          <p>Minimalistic shop for multipurpose use</p>
+                          <p>{{product.name}}</p>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <h5>$360.00</h5>
+                      <h5>€{{product.price}}</h5>
                     </td>
                     <td>
                       <div class="product_count">
@@ -57,34 +64,12 @@
                       </div>
                     </td>
                     <td>
-                      <h5>$720.00</h5>
+                      <h5>€{{product.price}}</h5>
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      <div class="media">
-                        <div class="d-flex">
-                          <img src="{% static 'img/gallery/card2.png' %}" alt="" />
-                        </div>
-                        <div class="media-body">
-                          <p>Minimalistic shop for multipurpose use</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <h5>$360.00</h5>
-                    </td>
-                    <td>
-                      <div class="product_count">
-                          <span class="input-number-decrement"> <i class="ti-minus"></i></span>
-                          <input class="input-number" type="text" value="1" min="0" max="10">
-                          <span class="input-number-increment"> <i class="ti-plus"></i></span>
-                      </div>
-                    </td>
-                    <td>
-                      <h5>$720.00</h5>
-                    </td>
-                  </tr>
+                  {% endfor %}
+
+                  
                   <tr class="bottom_button">
                     <td>
                       <a class="btn_1" href="#">Update Cart</a>
@@ -104,7 +89,7 @@
                       <h5>Subtotal</h5>
                     </td>
                     <td>
-                      <h5>$2160.00</h5>
+                      <h5>${{total}}</h5>
                     </td>
                   </tr>
                   <tr class="shipping_area">
