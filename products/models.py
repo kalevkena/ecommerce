@@ -36,11 +36,12 @@ class Product(models.Model):
     meta_description = models.CharField("Meta Keywords", max_length=255, help_text='Content for description tag') """
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    categories = models.ManyToManyField(Category)
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, null=True, blank=True)
     class Meta:
         db_table = 'products'
         ordering = ['-created_at']
-    
+
+
     def __str__(self):
         return self.name
     
@@ -49,6 +50,8 @@ class Product(models.Model):
             return self.price
         else:
             return None
+    
+    
 
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
@@ -58,12 +61,30 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.id)
+    
+    @property
+    def get_cart_total(self):
+        orderitems = self.orderitem_set.all()
+        total = sum([item.get_total for item in orderitems])
+        return total
+
+    @property 
+    def get_cart_items(self):
+        orderitems = self.orderitem_set.all()
+        total = sum([item.quantity for item in orderitems])
+        return total
 
 class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def get_total(self):
+        total = self.product.price * self.quantity
+        return total
+
 
 class ShippingAddress(models.Model):
     customer= models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
@@ -81,6 +102,6 @@ class ShippingAddress(models.Model):
 class Cart(models.Model):
     user = models.ForeignKey(Customer, on_delete=models.DO_NOTHING)
     active = models.BooleanField(default=True)
-    products = models.ManyToManyField(Product)
+    products = models.ManyToManyField(Product, blank=True)
 
 
