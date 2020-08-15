@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import TemplateView, FormView, CreateView, ListView, DeleteView, UpdateView, DetailView
 from products.models import Product, Category, Cart
 from accounts.models import Customer
@@ -13,15 +13,12 @@ import random
 class HomeView(TemplateView):
     template_name = "home.html"
 
-    """ def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        lucky_number = random.randint(1, 100)
-
-        context = {'messages': {'m1': 'Hello SDA!', 'm2': 'Im alive!'},
-               'lucky_number': lucky_number}
-
-        return context """
+    def get_context_data(self, *args, **kwargs):
+        category_menu = Category.objects.all()
+        context = super(HomeView, self).get_context_data(*args, **kwargs)
+        context['category_menu'] = category_menu
+        return context
+        
 
 class ContactView(FormView):
     template_name = 'contact.html'
@@ -59,7 +56,6 @@ class ProductListView(ListView):
         new_queryset = Product.objects.order_by(order)
 
         
-        
         if filter_val:
             new_queryset = new_queryset.filter(name__icontains=filter_val)
         
@@ -83,14 +79,6 @@ class CreateProductView(LoginRequiredMixin, CreateView):
     template_name = 'create.html'
     fields = '__all__'                   # instead of inserting all fields, like name, price et, can use __all__
     success_url = reverse_lazy('list')
-
-def checkout(request):
-    context = {}
-    return render(request, 'checkout.html', context)
-
-""" def cart(request):
-    context= {}
-    return render(request, 'cart.html', context) """
 
 class DetailProductView(DetailView):
     model = Product
@@ -139,3 +127,29 @@ class CartView(ListView):
         context['total'] = total 
 
         return context
+
+def checkout(request):
+    context = {}
+    return render(request, 'checkout.html', context)
+
+def CategoryView(request, categories):
+    category_products = Product.objects.filter(category=categories)
+    return render(request, 'categories.html', {'categories':categories, 'category_products':category_products})
+
+def add_to_cart(request, product_id):
+    logged_user = request.user
+    customer = Customer.objects.filter(user=logged_user).first()
+
+    carts = Cart.objects.filter(user=customer).filter(active=True)
+    user_cart = None
+    
+    if carts.count() == 0:
+        new_cart = Cart.objects.create(user=customer)
+        new_cart.save()
+        user_cart = new_cart
+    else:
+        user_cart = carts.first()
+
+    product = Product.objects.filter(id=product_id).first()
+    user_cart.products.add(product)
+    return HttpResponseRedirect(reverse_lazy('list'))
