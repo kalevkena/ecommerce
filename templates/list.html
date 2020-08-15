@@ -70,7 +70,8 @@ Product List page
                                         <p> <img src="{{ product.image.url}}" width="330" height="346"> </p>
                                         {% endif%}
                                         <div class="img-cap">
-                                            <span>Add to cart</span>
+                                            <a href="{% url 'add_to_cart' product.id %}"><span>Add to cart</span></a>
+                                            <!-- <span>Add to cart</span> -->
                                         </div>
                                         <div class="favorit-items">
                                             <span class="flaticon-heart"></span>
