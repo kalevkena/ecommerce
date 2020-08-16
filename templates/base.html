@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{% static 'css/slick.css' %}">
     <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
 </head>
 
 <body>
@@ -36,19 +37,23 @@
                     <div class="menu-wrapper">
                         <!-- Logo -->
                         <div class="logo">
-                            <a href="{% url 'home' %}"><img src="{% static 'img/logo/logo.png' %}" alt=""></a>
+                            <a href="{% url 'home' %}"><img src="{% static 'img/logo/blackbooks.png' %}" alt=""></a>
                         </div>
                         <!-- Main-menu -->
+                        
                         <div class="main-menu d-none d-lg-block">
-                            <nav>                                                
-                                <ul id="navigation">  
+                            
+                            <nav>               
+                                                              
+                                <ul id="navigation">
+                                      
                                     <li><a href="{% url 'home' %}">Home</a></li>
-                                    <li><a href="{% url 'list' %}">Products</a></li>
-                                    <li class="hot"><a href="#">Categories</a>
+                                    <!-- <li><a href="{% url 'list' %}">Products</a></li> -->
+                                    {% if category_menu %} 
+                                    <li class="hot"><a href="{% url 'list' %}">Products</a>
                                         <ul class="submenu">
                                             {% for item in category_menu %}
-                                            <li><a href="{% url 'category' item.id %}">{{ item }} </a></li>
-                                            
+                                            <li><a href="{% url 'list' %}?category={{ item.id }}">{{ item }} </a></li>
                                             {% endfor %}
                                         </ul>
 <!--                                    <li class="hot"><a href="#">Products</a>
@@ -57,12 +62,27 @@
                                             <li><a href="{% url 'category' item %}">{{ item }} </a></li>
                                             
                                             {% endfor %} -->
-                                    
+                                    {% endif %}
                                     <li><a href="{% url 'contact' %}">Contact</a></li>
+                                    
                                 <!--  -->
+                                
                                 </ul>
+                                
                             </nav>
+                            
                         </div>
+                        
+                        <!-- <form class="search"  method="get">
+        {% if filter %}
+        <input type="text" name="filter" value="{{filter}}">
+        {% else %}
+        <input type="text" placeholder="Search...." name="filter">
+        {% endif %}
+
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form> -->
+                        
                         <!-- Header Right -->
                         <div class="header-right">
                             <ul>
@@ -160,7 +180,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                         <div class="footer-social">
                             <a href="#"><i class="fab fa-twitter"></i></a>
                             <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fas fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
                         </div>
                     </div>
                 </div>
