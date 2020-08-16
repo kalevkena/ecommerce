@@ -37,34 +37,34 @@
                     
                   </tr>
                 </thead>
-                {% for product in products %}
+                {% for order_item in order_items %}
                 <tbody>
                   <tr>
                     <td>
                       <div class="media">
                         <div class="d-flex">
-                          {% if product.image %}
-                          <img src="{{ product.image.url}}" width="150" height="150" alt="" />
+                          {% if order_item.product.image %}
+                          <img src="{{ order_item.product.image.url}}" width="150" height="150" alt="" />
                           {% endif %}
                         </div>
                         
                         <div class="media-body">
-                          <p>{{product.name}}</p>
+                          <p>{{order_item.product.name}}</p>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <h5>€{{product.price}}</h5>
+                      <h5>€{{order_item.product.price}}</h5>
                     </td>
                     <td>
                       <div class="product_count">
                         <span class="input-number-decrement"> <i class="ti-minus"></i></span>
-                        <input class="input-number" type="text" value="1" min="0" max="10">
+                        <input class="input-number" type="text" value="{{order_item.quantity}}" min="0" max="10">
                         <span class="input-number-increment"> <i class="ti-plus"></i></span>
                       </div>
                     </td>
                     <td>
-                      <h5>€{{product.price}}</h5>
+                      <h5>€{{order_item.get_total}}</h5>
                     </td>
                   </tr>
                   {% endfor %}
