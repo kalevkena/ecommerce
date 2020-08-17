@@ -21,7 +21,7 @@ Product List page
                 </div>
             </div>
         </div>
-    <!-- <form class="search"  method="get">
+    <form class="search"  method="get">
         {% if filter %}
         <input type="text" name="filter" value="{{filter}}">
         {% else %}
@@ -29,15 +29,15 @@ Product List page
         {% endif %}
 
         <button type="submit"><i class="fa fa-search"></i></button>
-    </form> -->
+    </form>
         <section class="popular-items latest-padding">
             <div class="container">
                 <div class="row product-btn justify-content-between mb-40">
                     <div class="properties__button">
                         <nav>                                                      
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">NewestArrivals</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"> Price high to low</a>
+                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="{% url 'list' %}?orderby=created_at" role="tab" aria-controls="nav-home" aria-selected="true">NewestArrivals</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="{% url 'list' %}?orderby=price" role="tab" aria-controls="nav-profile" aria-selected="false"> Price high to low</a>
                                 <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"> Most populer </a>
                             </div>
                         </nav>
@@ -70,8 +70,12 @@ Product List page
                                         <p> <img src="{{ product.image.url}}" width="330" height="346"> </p>
                                         {% endif%}
                                         <div class="img-cap">
+                                            {% if user.is_authenticated %}
                                             <a href="{% url 'add_to_cart' product.id %}"><span>Add to cart</span></a>
                                             <!-- <span>Add to cart</span> -->
+                                            {% else %}
+                                            <a href="{% url 'login' %}"><span>Add to cart</span></a>
+                                            {% endif%}
                                         </div>
                                         <div class="favorit-items">
                                             <span class="flaticon-heart"></span>
@@ -80,7 +84,7 @@ Product List page
                                     <div class="popular-caption">
                                         <h3><a href="{% url 'detail' product.id %}">{{product.name}}</a></h3>
                                         <span>€{{product.old_price}}</span>
-                                        <span>€{{product.price}}</span>
+                                        <span>Discount price €{{product.price}}</span>
                                         
                                     </div>
                                     
